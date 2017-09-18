@@ -1,17 +1,17 @@
 import sys
 from twisted.internet import reactor
 from twisted.python import log
-from autobahn.twisted.websocket import WebSocketServerFactory
-from clue.protocol import ClueServerProtocol
+from clue.factory import ClueServerFactory
 
 def launch_server(port):
 	# Start logging to STDOUT
 	log.startLogging(sys.stdout)
 
 	# Initialize the factory.
-	# This will create the ClueServerProtocol for each connection
-	factory = WebSocketServerFactory()
-	factory.protocol = ClueServerProtocol
+    # The factory is responsible for creating the protocol
+    # for each connection. It is the shared data-model
+    # across all connections.
+	factory = ClueServerFactory()
 
 	# Start the Twisted reactor
 	# Main thread is now blocked

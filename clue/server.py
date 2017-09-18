@@ -9,8 +9,7 @@ def launch_server(port):
 	log.startLogging(sys.stdout)
 
 	# Initialize the factory.
-	# This will create the ClueServerProtocol for
-	# each connection
+	# This will create the ClueServerProtocol for each connection
 	factory = WebSocketServerFactory()
 	factory.protocol = ClueServerProtocol
 
@@ -24,7 +23,12 @@ if __name__ == "__main__":
 	import argparse
 
 	parser = argparse.ArgumentParser(description="SupaFly Clue Server")
-	parser.add_argument("--port", type=int, default=9000, help="The port on which the server should listen.")
+	parser.add_argument(
+		"--port",
+		type=int,
+		default=9000,
+		help="The port on which the server should listen."
+	)
 	options = parser.parse_args()
 
 	# Launch a master

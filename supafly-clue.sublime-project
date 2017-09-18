@@ -5,7 +5,10 @@
 			"path": "."
 		}
 	],
-	"tab_size": 4,
-	"word_wrap": true,
-	"translate_tabs_to_spaces": true
+	"settings": {
+		"tab_size": 4,
+		"word_wrap": true,
+		"translate_tabs_to_spaces": true,
+		"rulers": [80]
+	}
 }

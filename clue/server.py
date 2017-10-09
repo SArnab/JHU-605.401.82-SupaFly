@@ -1,7 +1,7 @@
 import sys
 from twisted.internet import reactor
 from twisted.python import log
-from clue.factory import ClueServerFactory
+from clue.websocket.factory import ClueServerFactory
 
 def launch_server(port):
 	# Start logging to STDOUT

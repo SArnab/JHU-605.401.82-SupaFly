@@ -44,7 +44,7 @@ class ClueServerProtocol(WebSocketServerProtocol):
 
         if (message == "PING"):
             # PING/PONG
-            self.sendMessage(u"PONG", False)
+            self.sendMessage("PONG".encode("utf-8"), False)
         else:
             # Echo
             self.sendMessage(payload, isBinary)

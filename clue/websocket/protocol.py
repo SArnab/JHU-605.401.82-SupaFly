@@ -42,8 +42,10 @@ class ClueServerProtocol(WebSocketServerProtocol):
         message = payload.decode("utf-8")
         log.msg("Received message [%s]" % message)
 
-        # Echo the same message back to the user
-        self.sendMessage("ECHO: " + message)
+        if (message == "PING"):
+            self.sendMessage("PONG")
+        else:
+            self.sendMessage(message)
 
     '''
     Called when this connection is closed.

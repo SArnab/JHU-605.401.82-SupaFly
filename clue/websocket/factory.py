@@ -1,5 +1,5 @@
 from autobahn.twisted.websocket import WebSocketServerFactory
-from clue.protocol import ClueServerProtocol
+from clue.websocket.protocol import ClueServerProtocol
 
 class ClueServerFactory(WebSocketServerFactory):
 

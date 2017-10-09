@@ -17,19 +17,3 @@ def launch_server(port):
 	# Main thread is now blocked
 	reactor.listenTCP(port, factory)
 	reactor.run()
-
-if __name__ == "__main__":
-
-	import argparse
-
-	parser = argparse.ArgumentParser(description="SupaFly Clue Server")
-	parser.add_argument(
-		"--port",
-		type=int,
-		default=9000,
-		help="The port on which the server should listen."
-	)
-	options = parser.parse_args()
-
-	# Launch a master
-	launch_server(port=options.port)

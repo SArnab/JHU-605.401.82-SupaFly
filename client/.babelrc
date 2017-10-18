@@ -1,0 +1,18 @@
+{
+    "presets": [
+        [
+            "env",
+            {
+                "targets": {
+                    "chrome": 44,
+                    "ie": 11,
+                    "safari": 9,
+                    "uglify": false
+                }
+            }
+        ],
+        "stage-0",
+        "react"
+    ],
+    "plugins": ["transform-runtime"]
+}

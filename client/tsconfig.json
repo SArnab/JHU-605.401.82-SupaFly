@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "moduleResolution": "node",
+        "isolatedModules": false,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "removeComments": true,
+        "preserveConstEnums": false,
+        "allowSyntheticDefaultImports": true,
+        "sourceMap": true,
+        "allowJs": false,
+        "jsx": "preserve",
+        "noUnusedParameters": false,
+        "alwaysStrict": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "noEmitHelpers": false,
+
+        // STOPGAP SOLUTION FOR BUG IN >= 2.4
+        "noStrictGenericChecks": true
+    },
+    "exclude": [
+        "./node_modules",
+        "./src/tests"
+    ],
+    "include": [
+        "./src/**/*"
+    ]
+}

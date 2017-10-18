@@ -102,3 +102,6 @@ ENV/
 
 # Sublime Workspace
 *.sublime-workspace
+
+# Vagrant
+.vagrant

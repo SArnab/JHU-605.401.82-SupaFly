@@ -1,0 +1,27 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+
+  config.vm.box = "ubuntu/trusty64"
+  config.vm.box_check_update = false
+
+  config.vm.provider "virtualbox" do |v|
+      v.memory = 1024
+      v.cpus = 2
+  end
+
+  config.vm.define "clueless", primary: false do |server|
+    server.vm.network :forwarded_port, guest: 80, host: 8081
+    server.vm.network :forwarded_port, guest: 443, host: 4430
+    server.vm.network "forwarded_port", guest: 3306, host: 3307
+    server.vm.synced_folder "../", "/clueless", owner: "vagrant", group: "vagrant", mount_options: ["dmode=775,fmode=664"]
+
+    server.vm.provision "shell", inline: <<-SHELL
+      # NodeJS 7.x
+      curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+
+      sudo apt-get install -yf nodejs
+    SHELL
+  end
+end

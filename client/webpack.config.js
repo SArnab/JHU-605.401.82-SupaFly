@@ -9,7 +9,7 @@ module.exports = function(env) {
         },
         "devtool": "source-map",
         "output": {
-            "path": path.resolve(__dirname, "./dist"),
+            "path": path.resolve(__dirname, "./"),
             "filename": "[name].js",
             "library": "ClueLessClient"
         },

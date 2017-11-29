@@ -1,10 +1,12 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import PlayClueLess from "./components/clueless"
+import Network from "./network"
 
-export function initialize(server_uri: string, element: HTMLElement) {
+export function initialize(socket_uri: string, element: HTMLElement) {
+    Network.socket_uri = socket_uri
 	ReactDOM.render(
-		<PlayClueLess connection_uri={server_uri} />,
+		<PlayClueLess />,
 		element
 	)
 }

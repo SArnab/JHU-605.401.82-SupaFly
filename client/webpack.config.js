@@ -34,7 +34,7 @@ module.exports = function(env) {
             "extensions": [".ts", ".tsx", ".js", ".jsx"]
         },
         "watchOptions": {
-            "aggregateTimeout": 5000,
+            "aggregateTimeout": 2500,
             "ignored": [ "node_modules", ".awcache" ],
             "poll": 1000
         }

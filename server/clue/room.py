@@ -1,2 +1,0 @@
-class ClueRoom:
-    pass

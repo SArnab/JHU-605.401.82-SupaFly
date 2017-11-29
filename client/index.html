@@ -1,12 +1,199 @@
 <html>
 	<head>
 		<title>Play ClueLess</title>
+		<!-- <link type="text/css" rel="stylesheet" src="dist/client.min.css" /> -->
+		<style type="text/css">
+			
+			div {
+				box-sizing: border-box;
+			}
+
+			.map {
+				position: relative;
+				width: 500px;
+				height: 500px;
+			}
+
+			.map > .room {
+				position: absolute;
+				width: 100px;
+				height: 100px;
+				border: solid 2px #000;
+
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-grow: 0;
+				flex-shrink: 0;
+				flex-basis: 100px;
+				padding: 10px;
+				text-align: center;
+				flex-wrap: wrap;
+			}
+
+			.map > .hallway {
+				position: absolute;
+				width: 50px;
+				height: 50px;
+				border: solid 2px #ddd;
+				padding: 10px;
+				text-align: center;
+			}
+
+			.hallway.vertical {
+				height: 100px;
+			}
+
+			.hallway.horizontal {
+				width: 100px;
+			}
+
+			.hallway.horizontal.top-left,
+			.hallway.horizontal.top-mid,
+			.hallway.horizontal.top-right {
+				margin-top: 25px;
+			}
+
+			.hallway.vertical.top-left,
+			.hallway.vertical.top-mid,
+			.hallway.vertical.top-right,
+			.hallway.vertical.mid-left,
+			.hallway.vertical.mid-mid,
+			.hallway.vertical.mid-right {
+				margin-top: 100px;
+			}
+
+			.hallway.horizontal.top-left,
+			.hallway.horizontal.top-mid,
+			.hallway.horizontal.mid-left,
+			.hallway.horizontal.mid-mid,
+			.hallway.horizontal.bottom-left,
+			.hallway.horizontal.bottom-mid {
+				margin-left: 100px;
+			}
+
+			.hallway.vertical.top-left,
+			.hallway.vertical.mid-left {
+				margin-left: 25px;
+			}
+			.hallway.vertical.top-right,
+			.hallway.vertical.mid-right {
+				margin-right: 25px;
+			}
+
+			.hallway.horizontal.bottom-left,
+			.hallway.horizontal.bottom-mid,
+			.hallway.horizontal.bottom-right {
+				margin-bottom: 25px;
+			}
+
+			.top-left {
+				top: 0;
+				left: 0;
+			}
+			.top-mid {
+				top: 0;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+			.top-right {
+				top: 0;
+				right: 0;
+			}
+			.bottom-left {
+				bottom: 0;
+				left: 0;
+			}
+			.bottom-mid {
+				bottom: 0;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+			.bottom-right {
+				bottom: 0;
+				right: 0;
+			}
+			.mid-left {
+				top: 50%;
+				transform: translateY(-50%);
+				left: 0;
+			}
+			.mid-right {
+				top: 50%;
+				transform: translateY(-50%);
+				right: 0;
+			}
+			.mid-mid {
+				top: 50%;
+				left: 50%;
+				transform: translateX(-50%) translateY(-50%);
+			}
+
+			.player {
+				background: #000;
+				width: 20px;
+				height: 20px;
+				border-radius: 10px;
+				border: solid 1px #000;
+				margin: 5px;
+			}
+
+			.player.yellow {
+				background: yellow;
+			}
+
+			.player.red {
+				background: red;
+			}
+
+			.player.white {
+				background: white;
+			}
+
+			.player.green {
+				background: green;
+			}
+
+			.player.blue {
+				background: blue;
+			}
+
+			.player.purple {
+				background: purple;
+			}
+
+			.cards {
+				display: flex;
+				flex-direction: row;
+				flex-wrap: nowrap;
+			}
+
+			.cards > .card {
+				width: 100px;
+			    height: 100px;
+			    display: flex;
+			    align-items: center;
+			    justify-content: center;
+			    text-align: center;
+			    border: solid 2px #000;
+			    margin: 0 10px;
+			}
+
+			.controls {
+				margin-left: 20px;
+			}
+
+			button {
+				padding: 10px;
+				font-size: 1em;
+			}
+		</style>
 	</head>
 	<body>
 		<div id="wrapper"></div>
 	</body>
 	<script type="text/javascript" src="dist/client.min.js"></script>
 	<script type="text/javascript">
-		window.ClueLessClient.initialize("ws://playclueless.fun:8000", document.getElementById("wrapper"));
+		window.ClueLessClient.initialize("ws://127.0.0.1:8000", document.getElementById("wrapper"));
 	</script>
 </html>

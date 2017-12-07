@@ -8,5 +8,9 @@ export {
 	move_up_right,
 	move_up_left,
 	move_down_left,
-	move_down_right
+	move_down_right,
+	makeSuggestion,
+	passSuggestion,
+	refuteSuggestion,
+	makeAccusation
 } from "./gameplay"

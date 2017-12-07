@@ -26,9 +26,16 @@ class Location:
 	def num_players(self):
 		return len(self.players)
 
+	def is_room(self):
+		return self.loc_type == "room"
+
+	def is_hallway(self):
+		return self.loc_type == "hallway"
+
 	def to_dict(self):
 		return {
 			"name": self.name,
+			"type": self.loc_type,
 			"players": [str(playerId) for playerId in self.players],
 			"move_up": self.move_up,
 			"move_down": self.move_down,

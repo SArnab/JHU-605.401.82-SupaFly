@@ -46,8 +46,53 @@ export default class PlayClueLess extends React.Component<Props,State> {
 			this.setState({ game: message.data as ClueLess.Game })
 		})
 
+		// Update player property
 		Network.addOperationListener(ClueLess.Operation.UPDATE_PLAYER, (message) => {
 			this.setState({ player: message.data as ClueLess.Player })
+		})
+
+		// Show an alert when the suggestion is refuted.
+		Network.addOperationListener(ClueLess.Operation.SUGGESTION_WAS_REFUTED, (message) => {
+			// Were you the person making the suggestion?
+			if (this.state.game && this.state.player && message.data.suggestion.player == this.state.player.id) {
+				const refuting_player = this.state.game.players.find(p => p.id == message.data.refuting_player) as ClueLess.Player
+				alert("Your suggestion was refuted by " + refuting_player.character + " with the card: " + message.data.card_name)
+			}
+		})
+
+		// Accusation failed.
+		Network.addOperationListener(ClueLess.Operation.ACCUSATION_DID_FAIL, (message) => {
+			if (!this.state.game || !this.state.player) {
+				return
+			}
+
+			const caseFile = message.data.case_file
+			alert("Sorry, your accusation was incorrect. You are out. The crime was committed by " + caseFile.suspect + " in " + caseFile.location + " with a " + caseFile.weapon)
+		})
+
+		// Accusation succeeded! Some player won the game.
+		Network.addOperationListener(ClueLess.Operation.ACCUSATION_DID_SUCCEED, (message) => {
+			if (!this.state.game || !this.state.player) {
+				return
+			}
+
+			// Are you the player who won?
+			const winning_player = this.state.game.players.find(p => p.id == message.data.player) as ClueLess.Player
+			if (winning_player.id == this.state.player.id) {
+				alert("Congratulations! Your accusation is correct. You won the game.")
+			} else {
+				alert(winning_player.character + " won the game!")
+			}
+		})
+
+		// Display message
+		Network.addOperationListener(ClueLess.Operation.MESSAGE, (message) => {
+			message.data && message.data.message && alert(message.data.message)
+		})
+
+		// Display error
+		Network.addOperationListener(ClueLess.Operation.ERROR, (message) => {
+			alert(message.data.message)
 		})
 	}
 

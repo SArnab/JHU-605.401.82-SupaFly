@@ -1,13 +1,13 @@
 class CaseFile:
 
-	def __init__(self, suspect, weapon, room):
+	def __init__(self, suspect, weapon, location):
 		self.suspect = suspect
 		self.weapon = weapon
-		self.room = room
+		self.location = location
 
 	def to_dict(self):
 		return {
 			"suspect": self.suspect.name,
 			"weapon": self.weapon.name,
-			"room": self.room.name
+			"location": self.location.name
 		}

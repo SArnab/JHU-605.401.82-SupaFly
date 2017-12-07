@@ -6,6 +6,7 @@ from txaio import create_future
 from time import time
 from clue.game.game import Game
 from clue.game.player import Player
+from clue.game.error import GameError
 import json
 
 #####################################
@@ -68,7 +69,8 @@ class ClueServerProtocol(WebSocketServerProtocol):
             try:
                 method = getattr(self, operation)
                 if method is not None: method(json_message)
-            except AttributeError: pass
+            except GameError as e:
+                self.sendOperation("error", e.to_dict())
 
     '''
     Called when this connection is closed.
@@ -105,48 +107,50 @@ class ClueServerProtocol(WebSocketServerProtocol):
         self.game = self.factory.find_or_create_game()
         self.game.add_player(self.player)
 
+    def move(self, direction):
+        self.game.move_player(self.player, direction)
+        
+        # If in a room, then the player may make a suggestion
+        if self.player.location.is_room():
+            self.active_turn_state = "waiting_to_suggest"
+
+        self.game.broadcast_game_state()
+
     def move_up(self, json_message):
-        if self.game is None or self.player is None:
-            raise Exception("Player is not part of a game.")
-        self.game.move_player(self.player, "up")
+        self.move("up")
 
     def move_down(self, json_message):
-        if self.game is None or self.player is None:
-            raise Exception("Player is not part of a game.")
-        self.game.move_player(self.player, "down")
+        self.move("down")
 
     def move_left(self, json_message):
-        if self.game is None or self.player is None:
-            raise Exception("Player is not part of a game.")
-        self.game.move_player(self.player, "left")
+        self.move("left")
 
     def move_right(self, json_message):
-        if self.game is None or self.player is None:
-            raise Exception("Player is not part of a game.")
-        self.game.move_player(self.player, "right")
+        self.move("right")
 
     def move_up_left(self, json_message):
-        if self.game is None or self.player is None:
-            raise Exception("Player is not part of a game.")
-        self.game.move_player(self.player, "up_left")
+        self.move("up_left")
 
     def move_up_right(self, json_message):
-        if self.game is None or self.player is None:
-            raise Exception("Player is not part of a game.")
-        self.game.move_player(self.player, "up_right")
+        self.move("up_right")
 
     def move_down_left(self, json_message):
-        if self.game is None or self.player is None:
-            raise Exception("Player is not part of a game.")
-        self.game.move_player(self.player, "down_left")
+        self.move("down_left")
 
     def move_down_right(self, json_message):
-        if self.game is None or self.player is None:
-            raise Exception("Player is not part of a game.")
-        self.game.move_player(self.player, "down_right")
+        self.move("down_right")
 
     def next_turn(self, json_message):
-        if self.game is None or self.player is None:
-            raise Exception("Player is not part of a game.")
         self.game.next_turn()
-            
+
+    def make_suggestion(self, json_message):
+        self.game.make_suggestion(self.player, json_message["data"]["suspect"], json_message["data"]["weapon"], json_message["data"]["location"])
+
+    def pass_suggestion(self, json_message):
+        self.game.pass_suggestion()
+
+    def refute_suggestion(self, json_message):
+        self.game.refute_suggestion(self.player, json_message["data"]["card_name"])
+
+    def make_accusation(self, json_message):
+        self.game.make_accusation(self.player, json_message["data"]["suspect"], json_message["data"]["weapon"], json_message["data"]["location"])

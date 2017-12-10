@@ -4,6 +4,7 @@ import Network from "../network"
 import Map from "./map"
 import Cards from "./cards"
 import Controls from "./controls"
+import Chat from "./chat"
 
 interface Props {
     game: ClueLess.Game,
@@ -65,6 +66,7 @@ export default class Game extends React.Component<Props, State>
                     </div>
                 </div>
                 <hr />
+                <Chat game={this.props.game} player={this.props.player} />
         	</div>
         )
     }

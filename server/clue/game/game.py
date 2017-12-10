@@ -26,6 +26,7 @@ class Game:
 		self.active_suggestion_turn = None
 		self.winner = None
 		self.game_over = False
+		self.creator = None
 
 		self.grid = [
 			[Study(), HallwayStudyToHall(), Hall(), HallwayHallToLounge(), Lounge()],
@@ -65,7 +66,7 @@ class Game:
 		self.broadcast_game_state()
 		
 		# Start the game if we have enough players.
-		if self.num_players() >= 6: self.start()
+		if self.num_players() >= 3: self.start()
 
 	def remove_player(self, player):
 		try:
@@ -86,8 +87,6 @@ class Game:
 		weapons = [card for card in deck if card.card_type == "weapon"]
 		
 		self.case_file = CaseFile(choice(suspects), choice(weapons), choice(rooms))
-
-		log.msg("Generated CaseFile [%s,%s,%s]" % (self.case_file.suspect, self.case_file.weapon, self.case_file.location))
 
 		# Remove these cards from the deck
 		deck.remove(self.case_file.suspect)
@@ -407,5 +406,6 @@ class Game:
 			"active_suggestion": self.active_suggestion.to_dict() if self.active_suggestion is not None else None,
 			"active_suggestion_turn": str(self.active_suggestion_turn) if self.active_suggestion_turn is not None else None,
 			"winner": str(self.winner) if self.winner is not None else None,
-			"game_over": self.game_over
+			"game_over": self.game_over,
+			"creator": str(self.creator) if self.creator is not None else None
 		}

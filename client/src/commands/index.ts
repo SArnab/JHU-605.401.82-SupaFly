@@ -1,3 +1,6 @@
+import Network from "../network"
+import { prepareMessage } from "../util"
+
 export {
 	joinGame,
 	nextTurn,
@@ -14,3 +17,9 @@ export {
 	refuteSuggestion,
 	makeAccusation
 } from "./gameplay"
+
+export function sendChatMessage(message: string) {
+	Network.send(prepareMessage(ClueLess.Operation.SEND_CHAT_MESSAGE, {
+		message: message
+	}))
+}

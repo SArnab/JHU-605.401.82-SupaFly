@@ -4,8 +4,10 @@ import { prepareMessage } from "../util"
 /**
  * Sends a message to the server to request joining a new game.
  */
-export function joinGame() {
-	Network.send(prepareMessage(ClueLess.Operation.JOIN_GAME))
+export function joinGame(player_name: string) {
+	Network.send(prepareMessage(ClueLess.Operation.JOIN_GAME, {
+		"player_name": player_name
+	}))
 }
 
 /**

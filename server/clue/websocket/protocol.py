@@ -103,8 +103,13 @@ class ClueServerProtocol(WebSocketServerProtocol):
         if self.game is not None:
             raise Exception("Player is already part of a game.")
 
-        self.player = Player(self)
+        self.player = Player(self, json_message["data"]["player_name"])
         self.game = self.factory.find_or_create_game()
+
+        # If he/she is the first player, then mark him/her as the creator.
+        if self.game.num_players() == 0:
+            self.game.creator = self.player.id
+        
         self.game.add_player(self.player)
 
     def move(self, direction):
@@ -154,3 +159,10 @@ class ClueServerProtocol(WebSocketServerProtocol):
 
     def make_accusation(self, json_message):
         self.game.make_accusation(self.player, json_message["data"]["suspect"], json_message["data"]["weapon"], json_message["data"]["location"])
+
+    def send_chat_message(self, json_message):
+        for playerId in self.game.players:
+            self.game.players[playerId].connection.sendOperation("receive_chat_message", {
+                "player": str(self.player.id),
+                "message": json_message["data"]["message"]
+            })

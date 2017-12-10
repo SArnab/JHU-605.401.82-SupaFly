@@ -101,7 +101,11 @@ export default class PlayClueLess extends React.Component<Props,State> {
 		if (this.state.game === undefined || this.state.player === undefined) {
 			return (
 				<button onClick={ () => {
-					Commands.joinGame()
+					let playerName: string | null = null
+					while (!playerName) {
+						playerName = window.prompt("What is your name?")
+					}
+					Commands.joinGame(playerName)
 				}}>
 					Play Now
 				</button>
@@ -109,7 +113,12 @@ export default class PlayClueLess extends React.Component<Props,State> {
 		}
 
 		if (!this.state.game.in_progress) {
-			return <h1>Waiting for more players...</h1>
+			return (
+				<div>
+					<h1>{ this.state.game.players.length } players...</h1>
+					<h2>Waiting for more players</h2>
+				</div>
+			)
 		}
 
 		return <Game game={this.state.game} player={this.state.player} />

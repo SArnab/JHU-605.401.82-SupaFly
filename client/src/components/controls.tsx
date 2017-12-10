@@ -240,7 +240,8 @@ export default class Controls extends React.Component<Props,State> {
 		return (
 			<div className="controls">
 				{ !this.suggestionInProgress() && this.isActiveTurn() && this.renderActiveTurn() }
-				{ !this.suggestionInProgress() && !this.isActiveTurn() && <h2>Not Your Turn</h2> }
+				{ !this.suggestionInProgress() && !this.isActiveTurn() && !this.didFailAccusation() && <h2>Not Your Turn</h2> }
+				{ this.didFailAccusation() && <h2>Accusation Failed - You Are Out</h2> }
 				{ this.suggestionInProgress() && this.renderSuggestionInProgress() }
 			</div>
 		)

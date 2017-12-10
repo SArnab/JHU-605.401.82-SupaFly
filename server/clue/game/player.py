@@ -1,7 +1,7 @@
 class Player:
 	
-	def __init__(self, connection):
-		self.name = "Player"
+	def __init__(self, connection, player_name):
+		self.name = player_name if player_name is not None else "Player"
 		self.connection = connection
 		self.id = connection.id
 		self.character = None

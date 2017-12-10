@@ -28,7 +28,9 @@ declare namespace ClueLess {
 		SUGGESTION_WAS_REFUTED = "suggestion_was_refuted",
 		MAKE_ACCUSATION = "make_accusation",
 		ACCUSATION_DID_FAIL = "accusation_did_fail",
-		ACCUSATION_DID_SUCCEED = "accusation_did_succeed"
+		ACCUSATION_DID_SUCCEED = "accusation_did_succeed",
+		SEND_CHAT_MESSAGE = "send_chat_message",
+		RECEIVE_CHAT_MESSAGE = "receive_chat_message"
 	}
 
 	interface Message {
@@ -54,6 +56,7 @@ declare namespace ClueLess {
 		readonly winner: string|null
 		readonly case_file: CaseFile
 		readonly game_over: boolean
+		readonly creator: string|null
 	}
 
 	interface Player {
@@ -103,6 +106,12 @@ declare namespace ClueLess {
 		readonly suspect: CharacterName
 		readonly weapon: WeaponName
 		readonly location: LocationName
+	}
+
+	interface ChatMessage {
+		readonly player: string
+		readonly timestamp: number
+		readonly message: string
 	}
 
 	type CardName = WeaponName | LocationName | CharacterName

@@ -66,7 +66,7 @@ class Game:
 		self.broadcast_game_state()
 		
 		# Start the game if we have enough players.
-		if self.num_players() >= 3: self.start()
+		if self.num_players() >= 6: self.start()
 
 	def remove_player(self, player):
 		try:
